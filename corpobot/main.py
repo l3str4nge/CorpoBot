@@ -1,6 +1,8 @@
 import sys
 import aioconsole
 import asyncio
+import click
+
 
 CORPOBOT_VERION = "0.1"
 
@@ -20,7 +22,13 @@ async def print_help():
     print(f"Following commands are available: get_tasks")
 
 
-def main():
+@click.command()
+@click.option("--config", help="Your .env file location")
+def main(config):
+    """ CorpoBot is application which helps you automate boring tasks at work. """
+    if not config:
+        print("No .env file specified! Goodbye!")
+        return
     print(f"Welcome to CorpoBot ! v.{CORPOBOT_VERION}")
     loop = asyncio.get_event_loop()
     loop.run_until_complete(get_input())
